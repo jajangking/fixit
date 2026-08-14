@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import StoryApp from '../components/StoryApp.jsx';
+---
+
+<Base
+  title="Fixit — Perjuangan Install OpenCode di Termux"
+  description="Blog pribadi: tulis cerita perjuanganmu, dari kegagalan hingga berhasil."
+>
+  <section class="hero">
+    <div class="container">
+      <h1>Fixit</h1>
+      <p>
+        Ruang pribadi untuk menuliskan keresahan dan perjuangan. Mulai dari
+        kisah <strong>gagal install OpenCode di Termux</strong>, sampai akhirnya
+        berhasil. Tulis, simpan, dan lihat kembali perjalananmu.
+      </p>
+    </div>
+  </section>
+
+  <section id="tulis" class="section">
+    <div class="container">
+      <h2 class="section-title">✍️ Tulis Ceritamu</h2>
+      <StoryApp client:load />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">📌 Kerangka Cerita Contoh</h2>
+      <div class="outline-box">
+        <p>Biarkan artikel pertama bertema <strong>"Gagal install OpenCode di Termux"</strong>. Contoh kerangka yang bisa kamu tulis di editor:</p>
+        <ol>
+          <li><strong>Pendahuluan</strong> — kenapa tertarik install OpenCode di Termux</li>
+          <li><strong>Kronologi kegagalan</strong> — metode yang dicoba tapi gagal (npm, build source, dll)</li>
+          <li><strong>Titik balik</strong> — momen ketika menemukan cara yang benar</li>
+          <li><strong>Langkah instalasi detail</strong> — command per command yang dipakai</li>
+          <li><strong>Penutup</strong> — pesan untuk pembaca yang mengalami hal serupa</li>
+        </ol>
+        <p class="hint">
+          Tips: tulis saja apa adanya seperti curhat, lalu rapikan. Setiap
+          entri tersimpan di Firebase, jadi aman dan bisa diakses dari mana saja.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
