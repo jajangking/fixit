@@ -15,20 +15,23 @@ const { title, description } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description ?? title} />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0b0e11" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
   <body>
     <header class="site-header">
-      <div class="container">
-        <a href="/" class="site-logo">
-          <span class="site-logo-mark">C</span>
-          <span>Fixit</span>
-        </a>
-        <nav>
-          <a href="/">Beranda</a>
-          <a href="/#tulis">Tulis Cerita</a>
+      <div class="term-bar">
+        <div class="term-dots" aria-hidden="true">
+          <span class="term-dot red"></span>
+          <span class="term-dot yellow"></span>
+          <span class="term-dot green"></span>
+        </div>
+        <span class="term-title"><span class="prompt">$</span> fixit — diary // termux</span>
+        <nav class="site-nav">
+          <a href="/">home</a>
+          <a href="/#tulis">write</a>
         </nav>
       </div>
     </header>
@@ -37,7 +40,8 @@ const { title, description } = Astro.props;
     </main>
     <footer class="site-footer">
       <div class="container">
-        <p>Dibuat dengan <span class="heart">♥</span> dan ketekunan.</p>
+        <div class="line"><span class="prompt">$</span> echo "exit code: success"</div>
+        <div class="line"><span class="ok">exit code: 0</span> <span class="dim">// ketekunan &gt; talenta</span></div>
       </div>
     </footer>
   </body>

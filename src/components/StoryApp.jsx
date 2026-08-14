@@ -9,8 +9,8 @@ export default function StoryApp() {
   if (!db) {
     return (
       <div className="empty-state">
-        <p><strong>Firebase belum dikonfigurasi.</strong></p>
-        <p>
+        <p className="prompt">$ setup firebase first</p>
+        <p className="dim">
           Salin <code>.env.example</code> menjadi <code>.env</code> lalu isi
           kredensial Firebase-mu. Detail langkahnya ada di <code>README.md</code>.
         </p>

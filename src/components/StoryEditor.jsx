@@ -43,27 +43,31 @@ export default function StoryEditor({ db }) {
 
   return (
     <form className="editor" onSubmit={handleSubmit}>
-      <label htmlFor="story-title">Judul</label>
+      <label className="field-label" htmlFor="story-title">
+        <span className="prompt">$</span> title / judul
+      </label>
       <input
         id="story-title"
         type="text"
-        placeholder="Contoh: Gagal install OpenCode di Termux"
+        placeholder="contoh: gagal install opencode di termux"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         maxLength={200}
       />
 
-      <label htmlFor="story-body">Isi Cerita</label>
+      <label className="field-label" htmlFor="story-body">
+        <span className="prompt">$</span> body / isi cerita
+      </label>
       <textarea
         id="story-body"
-        placeholder="Tulis keresahanmu di sini... apa yang kamu coba, gagalnya di mana, sampai akhirnya berhasil. Seperti menulis status di media sosial, tapi ini cerita panjang lebar."
+        placeholder="tulis keresahanmu di sini... apa yang kamu coba, gagalnya di mana, sampai akhirnya berhasil. seperti menulis status, tapi cerita panjang lebar."
         value={body}
         onChange={(e) => setBody(e.target.value)}
       />
 
       <div className="editor-actions">
         <button type="submit" className="btn btn-primary" disabled={saving}>
-          {saving ? 'Menyimpan...' : 'Simpan Cerita'}
+          {saving ? 'menyimpan...' : 'simpan cerita'}
         </button>
         {status.message && (
           <span className={`status ${status.type}`}>{status.message}</span>

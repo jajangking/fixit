@@ -47,7 +47,8 @@ export default function StoryList({ db }) {
   if (error) {
     return (
       <div className="empty-state">
-        <p>{error}</p>
+        <p className="prompt">$ [ERR] gagal baca cerita</p>
+        <p className="dim">{error}</p>
       </div>
     );
   }
@@ -55,7 +56,7 @@ export default function StoryList({ db }) {
   if (posts === null) {
     return (
       <div className="empty-state">
-        <p>Memuat cerita...</p>
+        <p className="prompt">$ loading cerita...</p>
       </div>
     );
   }
@@ -63,9 +64,8 @@ export default function StoryList({ db }) {
   if (posts.length === 0) {
     return (
       <div className="empty-state">
-        <p>
-          Belum ada cerita. Jadilah yang pertama menuliskan perjuanganmu! 🚀
-        </p>
+        <p className="prompt">$ ls cerita/</p>
+        <p className="dim">belum ada cerita. jadilah yang pertama menuliskan perjuanganmu.</p>
       </div>
     );
   }
@@ -82,7 +82,11 @@ export default function StoryList({ db }) {
 
   return (
     <div style={{ marginTop: '2rem' }}>
-      <h2 className="section-title">📖 Timeline Cerita</h2>
+      <div className="section-head">
+        <span className="prompt">$</span>
+        <span className="name">timeline / daftar cerita</span>
+        <span className="hash">#</span>
+      </div>
       {posts.map((post) => (
         <article key={post.id} className="post-card">
           <h3 className="post-title">{post.title}</h3>
@@ -94,7 +98,7 @@ export default function StoryList({ db }) {
               className="btn btn-danger"
               onClick={() => handleDelete(post.id)}
             >
-              Hapus
+              hapus
             </button>
           </div>
         </article>

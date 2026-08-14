@@ -4,42 +4,67 @@ import StoryApp from '../components/StoryApp.jsx';
 ---
 
 <Base
-  title="Fixit — Perjuangan Install OpenCode di Termux"
+  title="fixit — perjuangan install opencode di termux"
   description="Blog pribadi: tulis cerita perjuanganmu, dari kegagalan hingga berhasil."
 >
   <section class="hero">
     <div class="container">
-      <h1>Fixit</h1>
-      <p>
-        Ruang pribadi untuk menuliskan keresahan dan perjuangan. Mulai dari
-        kisah <strong>gagal install OpenCode di Termux</strong>, sampai akhirnya
-        berhasil. Tulis, simpan, dan lihat kembali perjalananmu.
-      </p>
+      <div class="hero-window">
+        <div class="term-bar">
+          <div class="term-dots" aria-hidden="true">
+            <span class="term-dot red"></span>
+            <span class="term-dot yellow"></span>
+            <span class="term-dot green"></span>
+          </div>
+          <span class="term-title"><span class="prompt">$</span> fixit</span>
+          <nav class="site-nav" aria-hidden="true">
+            <a href="#tulis">write</a>
+          </nav>
+        </div>
+        <div class="hero-body">
+          <div class="line"><span class="dim"># blog pribadi — tempat curhat &amp; perjuangan</span></div>
+          <div class="line"><span class="cmd"><span class="prompt">$</span> cat perjalanan_install_opencode.txt</div>
+          <div class="line"><span class="dim">--------------------------------------------</span></div>
+          <div class="line"><span class="amber">[ERR]</span> gagal. <span class="amber">[ERR]</span> gagal. <span class="amber">[ERR]</span> gagal.</div>
+          <div class="line"><span class="amber">[WARN]</span> tapi aku tidak berhenti mencoba.</div>
+          <div class="line"><span class="ok">[ OK ]</span> akhirnya berhasil.</div>
+          <div class="line"><span class="dim">--------------------------------------------</span></div>
+          <div class="line"><span class="cmd"><span class="prompt">$</span> <span class="blink"></span></div>
+        </div>
+      </div>
     </div>
   </section>
 
   <section id="tulis" class="section">
     <div class="container">
-      <h2 class="section-title">✍️ Tulis Ceritamu</h2>
+      <div class="section-head">
+        <span class="prompt">$</span>
+        <span class="name">write / tulis ceritamu</span>
+        <span class="hash">#</span>
+      </div>
       <StoryApp client:load />
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <h2 class="section-title">📌 Kerangka Cerita Contoh</h2>
+      <div class="section-head">
+        <span class="prompt">$</span>
+        <span class="name">template / kerangka cerita</span>
+        <span class="hash">#</span>
+      </div>
       <div class="outline-box">
-        <p>Biarkan artikel pertama bertema <strong>"Gagal install OpenCode di Termux"</strong>. Contoh kerangka yang bisa kamu tulis di editor:</p>
+        <div class="line"><span class="dim"># artikel pertama: "Gagal install OpenCode di Termux"</span></div>
         <ol>
-          <li><strong>Pendahuluan</strong> — kenapa tertarik install OpenCode di Termux</li>
-          <li><strong>Kronologi kegagalan</strong> — metode yang dicoba tapi gagal (npm, build source, dll)</li>
-          <li><strong>Titik balik</strong> — momen ketika menemukan cara yang benar</li>
-          <li><strong>Langkah instalasi detail</strong> — command per command yang dipakai</li>
-          <li><strong>Penutup</strong> — pesan untuk pembaca yang mengalami hal serupa</li>
+          <li><strong>pendahuluan</strong> — kenapa tertarik install OpenCode di Termux</li>
+          <li><strong>kronologi kegagalan</strong> — metode yang dicoba tapi gagal (npm, build source, dll)</li>
+          <li><strong>titik balik</strong> — momen ketika menemukan cara yang benar</li>
+          <li><strong>langkah instalasi detail</strong> — command per command yang dipakai</li>
+          <li><strong>penutup</strong> — pesan untuk pembaca yang mengalami hal serupa</li>
         </ol>
         <p class="hint">
-          Tips: tulis saja apa adanya seperti curhat, lalu rapikan. Setiap
-          entri tersimpan di Firebase, jadi aman dan bisa diakses dari mana saja.
+          tips: tulis apa adanya seperti curhat, lalu rapikan. setiap entri
+          tersimpan di firebase, jadi aman dan bisa diakses dari mana saja.
         </p>
       </div>
     </div>
