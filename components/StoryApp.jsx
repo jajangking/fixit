@@ -1,7 +1,9 @@
+'use client';
+
 import { useState } from 'react';
-import { initFirebase, isFirebaseConfigured } from '../lib/firebase';
-import StoryEditor from './StoryEditor.jsx';
-import StoryList from './StoryList.jsx';
+import { initFirebase, isFirebaseConfigured } from '@/lib/firebase';
+import StoryEditor from './StoryEditor';
+import StoryList from './StoryList';
 
 export default function StoryApp() {
   const [db] = useState(() => (isFirebaseConfigured ? initFirebase() : null));

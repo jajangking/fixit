@@ -1,10 +1,10 @@
 # Fixit — Blog Pribadi dengan Firebase
 
-Blog pribadi untuk menuliskan keresahan dan perjuangan (contoh: "gagal install OpenCode di Termux, tapi akhirnya berhasil"). Bisa tulis/edit/hapus cerita langsung dari browser, data tersimpan di **Firebase Firestore** (cloud, gratis).
+Blog pribadi untuk menuliskan keresahan dan perjuangan apa pun (gagal berkali-kali, terus mencoba, akhirnya berhasil). Bisa tulis/edit/hapus cerita langsung dari browser, data tersimpan di **Firebase Firestore** (cloud, gratis).
 
 ## Stack
 
-- [Astro](https://astro.build) + React
+- [Next.js](https://nextjs.org) (App Router) + React
 - Firebase Firestore (database)
 - Deploy gratis di [Vercel](https://vercel.com)
 
@@ -34,14 +34,16 @@ cp .env.example .env
 Isi `.env`:
 
 ```
-VITE_FIREBASE_API_KEY=xxx
-VITE_FIREBASE_AUTH_DOMAIN=dimonitor-1c806.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=dimonitor-1c806
-VITE_FIREBASE_STORAGE_BUCKET=dimonitor-1c806.firebasestorage.app
-VITE_FIREBASE_MESSAGING_SENDER_ID=xxx
-VITE_FIREBASE_APP_ID=xxx
+NEXT_PUBLIC_FIREBASE_API_KEY=xxx
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=dimonitor-1c806.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=dimonitor-1c806
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=dimonitor-1c806.firebasestorage.app
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=xxx
+NEXT_PUBLIC_FIREBASE_APP_ID=xxx
 ```
 
+> **Catatan penting:** Next.js hanya mengekspos env vars ber-prefix `NEXT_PUBLIC_` ke browser — prefix lain **tidak** terbaca di komponen client. Saat mengisi Environment Variables di Vercel, gunakan nama `NEXT_PUBLIC_FIREBASE_*` (bukan `VITE_*`/`PUBLIC_*`).
+>
 > **Penting:** jangan commit `.env`. Sudah ada di `.gitignore`.
 
 ## 2. Atur Firestore Rules
@@ -104,7 +106,7 @@ npm install
 npm run dev
 ```
 
-Buka `http://localhost:4321` di browser (gunakan termux-url-opener / browser).
+Buka `http://localhost:3000` di browser (gunakan termux-url-opener / browser).
 
 ## 4. Deploy ke Vercel
 
@@ -117,7 +119,7 @@ npx vercel
 ```
 
 - Ikuti prompt: link ke project Vercel (buat baru).
-- Saat diminta env vars, tambahkan 6 variabel `VITE_FIREBASE_*` dari `.env`.
+- Saat diminta env vars, tambahkan 6 variabel `NEXT_PUBLIC_FIREBASE_*` dari `.env`.
 - Setelah sukses, buka URL yang diberikan.
 
 Untuk update berikutnya:
@@ -139,7 +141,7 @@ git remote add origin https://github.com/USER/fixit.git
 git push -u origin main
 ```
 
-2. Buka <https://vercel.com/new> → **Import** repo → **Environment Variables**: tambahkan 6 variabel `VITE_FIREBASE_*`.
+2. Buka <https://vercel.com/new> → **Import** repo → **Environment Variables**: tambahkan 6 variabel `NEXT_PUBLIC_FIREBASE_*`.
 3. Klik **Deploy**.
 
 ---
@@ -147,19 +149,19 @@ git push -u origin main
 ## Struktur Proyek
 
 ```
-personal-story/
-├── .env.example          # template kredensial Firebase
-├── astro.config.mjs      # config Astro + Vercel
+fixit/
+├── .env.example              # template kredensial Firebase
+├── next.config.mjs           # config Next.js
 ├── public/favicon.svg
-└── src/
-    ├── layouts/Base.astro
-    ├── pages/index.astro
-    ├── components/
-    │   ├── StoryApp.jsx      # pemisah konfigurasi vs editor
-    │   ├── StoryEditor.jsx   # form tulis cerita
-    │   └── StoryList.jsx     # timeline cerita (real-time)
-    ├── lib/firebase.js       # init Firebase
-    └── styles/global.css
+├── app/
+│   ├── layout.js             # layout utama (header, footer)
+│   ├── page.js               # halaman utama
+│   └── globals.css           # gaya global (tema terminal/CRT)
+├── components/
+│   ├── StoryApp.jsx      # pemisah konfigurasi vs editor
+│   ├── StoryEditor.jsx   # form tulis cerita
+│   └── StoryList.jsx     # timeline cerita (real-time)
+└── lib/firebase.js       # init Firebase
 ```
 
 ## Fitur
@@ -167,7 +169,7 @@ personal-story/
 - Tulis / hapus cerita langsung di web (real-time)
 - Data tersimpan di Firebase (aman dari ganti browser/HP)
 - Dark mode otomatis, mobile-friendly
-- Template kerangka cerita "Gagal install OpenCode di Termux"
+- Template kerangka cerita universal (pendahuluan → kegagalan → titik balik → berhasil)
 
 ## Catatan
 

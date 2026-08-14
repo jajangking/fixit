@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
@@ -49,7 +51,7 @@ export default function StoryEditor({ db }) {
       <input
         id="story-title"
         type="text"
-        placeholder="contoh: gagal install opencode di termux"
+        placeholder="contoh: gagal berkali-kali, tapi akhirnya berhasil"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         maxLength={200}
