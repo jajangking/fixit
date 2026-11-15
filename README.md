@@ -40,17 +40,22 @@ NEXT_PUBLIC_FIREBASE_PROJECT_ID=dimonitor-1c806
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=dimonitor-1c806.firebasestorage.app
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=xxx
 NEXT_PUBLIC_FIREBASE_APP_ID=xxx
+
+# opsional, hanya kalau mau pakai Firebase Analytics
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=xxx
 ```
 
 > **Catatan penting:** Next.js hanya mengekspos env vars ber-prefix `NEXT_PUBLIC_` ke browser — prefix lain **tidak** terbaca di komponen client. Saat mengisi Environment Variables di Vercel, gunakan nama `NEXT_PUBLIC_FIREBASE_*` (bukan `VITE_*`/`PUBLIC_*`).
 >
 > **Penting:** jangan commit `.env`. Sudah ada di `.gitignore`.
+>
+> **Jangan tempel mentah snippet dari Firebase Console.** Snippet bawaan Console (`const firebaseConfig = { apiKey: "..." }` + `getAnalytics(app)`) meng-hardcode kredensial ke source code dan memanggil Analytics di level modul — di Next.js itu bikin error saat SSR. Nilainya cukup dipindah ke `.env`, lalu biarkan `lib/firebase.js` yang membacanya. Analytics sudah di-handle di sana secara lazy (browser saja) lewat `getAnalyticsClient()`.
 
 ## 2. Atur Firestore Rules
 
 Agar tidak sembarang orang bisa menulis/menghapus ceritamu, atur rules berikut.
 
-**Opsi A — siapa pun bisa menulis** (cepat, untuk tes):
+**Opsi A — development / tes, tanpa login** (yang jalan dengan kode saat ini):
 
 ```
 rules_version = '2';
@@ -58,28 +63,15 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /posts/{id} {
       allow read: if true;
-      allow write: if request.auth != null;
+      allow create, delete: if true;
     }
   }
 }
 ```
 
-**Opsi B — hanya kamu yang bisa menulis** (recommended, tanpa auth):
+> ⚠️ Konsekuensinya: siapa pun yang tahu URL bisa menulis **dan menghapus** cerita. Untuk sekadar tes, lebih aman pakai **test mode** bawaan Firebase (rules `if true` yang otomatis kedaluwarsa), lalu ganti ke Opsi B sebelum dipakai serius.
 
-```
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /posts/{id} {
-      allow read: if true;
-      allow create: if true;
-      allow delete: if true;
-    }
-  }
-}
-```
-
-> Catatan: karena tanpa login, validasi "hanya aku" penuh membutuhkan Firebase Auth. Untuk blog pribadi simple, Opsi B dengan `create: true` & `delete: true` adalah jalan pintas yang umum. Jika ingin benar-benar hanya kamu yang bisa tulis, aktifkan **Anonymous Auth** di Firebase Console, lalu set rules:
+**Opsi B — bebas baca, tulis harus terautentikasi** (recommended untuk production):
 
 ```
 rules_version = '2';
@@ -93,7 +85,7 @@ service cloud.firestore {
 }
 ```
 
-Dan uncomment bagian auth pada komponen jika dibutuhkan.
+> **Syarat wajib Opsi B:** nyalakan **Anonymous Auth** di Firebase Console → **Build → Authentication → Sign-in method → Anonymous → Enable**, lalu panggil `signInAnonymously()` dari aplikasi saat pertama kali load. Tanpa itu semua operasi tulis akan gagal dengan `FirebaseError: permission-denied` / *Missing or insufficient permissions*, karena aplikasi ini sekarang belum punya alur login. Jadi: belum mau tambah auth → pakai **Opsi A**.
 
 Cara pasang rules: menu **Firestore Database → Rules** → tempel → **Publish**.
 
